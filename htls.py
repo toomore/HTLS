@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from datetime import datetime
+
 class htls(object):
   """ HTLS """
   def __init__(self):
@@ -20,8 +22,20 @@ class htls(object):
 
   def ht(self, age):
     """ HT cal. """
-    o = ['成熟運','發展運','巔峰運','老化運','病變運','破滅運','股底運','蘊釀運','吸收運','成長運']
+    o = ['成熟運','發展運','巔峰運','老化運','病變運','破滅運','谷底運','蘊釀運','吸收運','成長運']
     oo = ['90-126','126-162','162-198','198-234','234-270','270-306','306-342','342-18','18-54','54-90']
     behao = self.total % 10
-    t_age = age + behao
-    print '%s (%s)' % (o[t_age % 10],oo[t_age % 10])
+    t_age = abs(age - behao)
+    print '河圖：%s (%s)' % (o[t_age % 10],oo[t_age % 10])
+
+  def ls(self, year = datetime.today().year - 1911):
+    """ LS cal. """
+    name = self.total % 9
+    ll = ['名','財','官','利','交','拜','衰','煞','絕']
+    print '洛書：%s' % ll[abs(year - name) % 9]
+
+  def all(self, name, age, year = datetime.today().year - 1911):
+    """ All in one. age for ht, year for ls. """
+    self.s(name)
+    self.ht(age)
+    self.ls(year)
