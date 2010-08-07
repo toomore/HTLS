@@ -37,5 +37,5 @@ class htls(object):
   def all(self, name, age, year = datetime.today().year - 1911):
     """ All in one. age for ht, year for ls. """
     self.s(name)
-    self.ht(age)
+    if age:self.ht(age)
     self.ls(year)
