@@ -15,4 +15,13 @@ class htls(object):
         if r in ii[2].decode('utf-8'):
           total += int(ii[0])
           print '%s %2s %s' % (r.encode('utf-8'), ii[0], ii[1])
+    self.total = total
     print '總計 %s' % total
+
+  def ht(self, age):
+    """ HT cal. """
+    o = ['成熟運','發展運','巔峰運','老化運','病變運','破滅運','股底運','蘊釀運','吸收運','成長運']
+    oo = ['90-126','126-162','162-198','198-234','234-270','270-306','306-342','342-18','18-54','54-90']
+    behao = self.total % 10
+    t_age = age + behao
+    print '%s (%s)' % (o[t_age % 10],oo[t_age % 10])
