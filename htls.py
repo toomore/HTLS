@@ -34,7 +34,7 @@ class htls(object):
     ll = ['名','財','官','利','交','拜','衰','煞','絕']
     print '洛書：%s' % ll[abs(year - name) % 9]
 
-  def all(self, name, age, year = datetime.today().year - 1911):
+  def all(self, name, age = 0, year = datetime.today().year - 1911):
     """ All in one. age for ht, year for ls. """
     self.s(name)
     if age:self.ht(int(age))
