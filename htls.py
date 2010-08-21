@@ -11,14 +11,15 @@ class htls(object):
   def s(self, word):
     """ search Stroke """
     total = 0
-    for r in word.decode('utf-8'):
+    s_op = ''
+    for r in word:
       for i in self.aw:
         ii = i.split(' ')
         if r in ii[2].decode('utf-8'):
           total += int(ii[0])
-          print '%s %2s %s' % (r.encode('utf-8'), ii[0], ii[1])
+          s_op += '%s %2s %s\n' % (r.encode('utf-8'), ii[0], ii[1])
     self.total = total
-    print '總計 %s' % total
+    return s_op + '總計 %s\n' % total
 
   def ht(self, age):
     """ HT cal. """
@@ -26,16 +27,18 @@ class htls(object):
     oo = ['90-126','126-162','162-198','198-234','234-270','270-306','306-342','342-18','18-54','54-90']
     behao = self.total % 10
     t_age = abs(age - behao)
-    print '河圖：%s (%s)' % (o[t_age % 10],oo[t_age % 10])
+    return '河圖：%s (%s)\n' % (o[t_age % 10],oo[t_age % 10])
 
   def ls(self, year = datetime.today().year - 1911):
     """ LS cal. """
     name = self.total % 9
     ll = ['名','財','官','利','交','拜','衰','煞','絕']
-    print '洛書：%s' % ll[abs(year - name) % 9]
+    return '洛書：%s\n' % ll[abs(year - name) % 9]
 
   def all(self, name, age = 0, year = datetime.today().year - 1911):
     """ All in one. age for ht, year for ls. """
-    self.s(name)
-    if age:self.ht(int(age))
-    self.ls(year)
+    a = self.s(name)
+    if age:
+      b = self.ht(int(age))
+    c = self.ls(int(year))
+    return a + b + c
