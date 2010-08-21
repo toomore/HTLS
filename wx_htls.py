@@ -23,7 +23,7 @@ class MyFrame(wx.Frame):
         self.text_ctrl_3 = wx.TextCtrl(self, -1, "")
         self.button_1 = wx.Button(self, -1, u"計算")
         self.button_1.Bind(wx.EVT_BUTTON, self.OnClose)
-        self.label_4 = wx.StaticText(self, -1, "請輸入以上資料。")
+        self.label_4 = wx.StaticText(self, -1, u"請輸入以上資料。")
 
         self.__set_properties()
         self.__do_layout()
@@ -31,7 +31,7 @@ class MyFrame(wx.Frame):
 
     def __set_properties(self):
         # begin wxGlade: MyFrame.__set_properties
-        self.SetTitle("河圖洛書")
+        self.SetTitle(u"河圖洛書")
         # end wxGlade
 
     def __do_layout(self):
@@ -71,7 +71,7 @@ class MyFrame(wx.Frame):
         ## set label value
         ## self.label_4.SetLabel(unicode(self.text_ctrl_1.GetValue()))
         a = htls.htls().all(self.text_ctrl_1.GetValue(),self.text_ctrl_2.GetValue(),self.text_ctrl_3.GetValue())
-        self.label_4.SetLabel(a)
+        self.label_4.SetLabel(a.decode('utf-8'))
         self.Fit()
         # end wxGlade
 
@@ -96,7 +96,7 @@ class MyPanel(wx.Panel):
 if __name__ == "__main__":
     app = wx.PySimpleApp(0)
     wx.InitAllImageHandlers()
-    frame_1 = MyFrame(None, -1, "")
+    frame_1 = MyFrame(None, -1, "HTLS")
     app.SetTopWindow(frame_1)
     frame_1.Show()
     app.MainLoop()
