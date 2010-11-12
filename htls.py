@@ -40,5 +40,5 @@ class htls(object):
     """ All in one. age for ht, year for ls. """
     re = self.s_op + '\n'
     if age:re += self.ht(int(age)) + '\n'
-    re += self.ls(year)
+    re += self.ls(int(year))
     return re
