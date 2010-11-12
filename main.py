@@ -59,6 +59,7 @@ class xmpp_pagex(webapp.RequestHandler):
     #msg.reply(msg.body)
     logging.info(self.request.POST)
     logging.info('Msg status: %s' % msg.body)
+    logging.info('HTLS: %s' % re)
 
 ############## main Models ##############
 def main():
