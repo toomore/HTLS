@@ -33,7 +33,7 @@ import logging,htls
 class MainPage(webapp.RequestHandler):
   def get(self):
     msg = """
-HTLS 和圖洛書 <a href="/chat/">索取邀請函</a> / <a href="https://github.com/toomore/HTLS/wiki/GTalk">使用說明</a><br>
+HTLS 河圖洛書 <a href="/chat/">索取邀請函</a> / <a href="https://github.com/toomore/HTLS/wiki/GTalk">使用說明</a><br>
 <b>(需要 Gmail 才可使用此應用程式)</b>
 """
     self.response.out.write(msg)
@@ -47,7 +47,15 @@ class xmpp_invite(webapp.RequestHandler):
     xmpp.send_message('toomore0929@gmail.com', '#NEWUSER %s' % umail)
     logging.info('#NEWUSER %s' % umail)
     ## todo: send a guild mail to the first time invited user.
-    self.response.out.write('%s invited. Please check out your <a href="http://www.gmail.com/">GTalk</a>.' % umail)
+    re = """
+%s 寄送邀請了！ 請確認您的 <a href="http://www.gmail.com/">Gmail</a> 信箱。<br>
+<br>
+再 3 個步驟即可完成：<br>
+1. 連到 Gmail 信箱，在左側<b>即時通訊</b>欄中確認加入 myhtls@appspot.com<br>
+2. 在下方欄位內找到 <b>myhtls</b> 點擊開啟對話視窗<br>
+3. 輸入 help 或相關查詢即可使用
+""" % umail
+    self.response.out.write(re)
     #self.redirect('http://www.gmail.com/')
 
 class xmpp_pagex(webapp.RequestHandler):
@@ -55,11 +63,26 @@ class xmpp_pagex(webapp.RequestHandler):
     msg = xmpp.Message(self.request.POST)
     if 'help' in msg.body:
       msg.reply('\r\n<姓名> <年齡> <計算流年（民國年）>')
+    elif 'ht' in msg.body:
+      hts = htls.htls().hts
+      re = ''
+      for i in hts:
+        re += i + '→'
+      msg.reply(re)
+    elif 'ls' in msg.body:
+      lss = htls.htls().lss
+      re = ''
+      for i in lss:
+        re += i + '→'
+      msg.reply(re)
     else:
-      st = msg.body.split(' ')
-      re = htls.htls(st[0].encode('utf-8')).all(st[1],st[2])
-      msg.reply('\r\n' + re)
-      logging.info('HTLS: %s' % re)
+      try:
+        st = msg.body.split(' ')
+        re = htls.htls(st[0].encode('utf-8')).all(st[1],st[2])
+        msg.reply('\r\n' + re)
+        logging.info('HTLS: %s' % re)
+      except:
+        msg.reply('輸入錯誤！請參考說明文件：https://github.com/toomore/HTLS/wiki/GTalk')
     #msg.reply(msg.body)
     logging.info(self.request.POST)
     logging.info('Msg status: %s' % msg.body)
