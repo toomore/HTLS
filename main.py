@@ -56,10 +56,10 @@ class xmpp_pagex(webapp.RequestHandler):
       st = msg.body.split(' ')
       re = htls.htls(st[0].encode('utf-8')).all(st[1],st[2])
       msg.reply('\r\n' + re)
+      logging.info('HTLS: %s' % re)
     #msg.reply(msg.body)
     logging.info(self.request.POST)
     logging.info('Msg status: %s' % msg.body)
-    logging.info('HTLS: %s' % re)
 
 ############## main Models ##############
 def main():
