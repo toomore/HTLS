@@ -33,7 +33,8 @@ import logging,htls
 class MainPage(webapp.RequestHandler):
   def get(self):
     msg = """
-HTLS 和圖洛書 <a href="/chat/">索取邀請函</a>
+HTLS 和圖洛書 <a href="/chat/">索取邀請函</a> / <a href="https://github.com/toomore/HTLS/wiki/GTalk">使用說明</a><br>
+<b>(需要 Gmail 才可使用此應用程式)</b>
 """
     self.response.out.write(msg)
 
@@ -43,6 +44,8 @@ class xmpp_invite(webapp.RequestHandler):
   def get(self):
     umail = users.get_current_user().email()
     xmpp.send_invite(umail)
+    xmpp.send_message('toomore0929@gmail.com', '#NEWUSER %s' % umail)
+    logging.info('#NEWUSER %s' % umail)
     ## todo: send a guild mail to the first time invited user.
     self.response.out.write('%s invited. Please check out your <a href="http://www.gmail.com/">GTalk</a>.' % umail)
     #self.redirect('http://www.gmail.com/')
