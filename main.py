@@ -28,6 +28,7 @@ from google.appengine.ext.webapp.util import login_required
 from google.appengine.ext.webapp import template
 
 #from google.appengine.api import urlfetch
+from datetime import datetime
 import logging,htls
 
 ############## webapp Models ##############
@@ -82,10 +83,12 @@ class mass(webapp.RequestHandler):
 
 class massc(webapp.RequestHandler):
   def get(self):
+    t = datetime.today()
     q = self.request.get('q')
     qq = q.replace('\r','').split('\n')
     re = htls.masscal(qq)
-    tv = {'q': re}
+    end = datetime.today() - t
+    tv = {'q': re,'t': '%s.%06d' % (end.seconds, end.microseconds)}
     self.response.out.write(template.render('./template/hh_massc.htm',{'tv': tv}))
 
 ############## main Models ##############
