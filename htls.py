@@ -28,7 +28,7 @@ class htls(object):
           total += int(ii[0])
           s_op += '%s %2s %s\n' % (r.encode('utf-8'), ii[0], ii[1])
     self.total = total
-    self.s_op = s_op + '總計 %s' % total
+    self.s_op = s_op
 
   def ht(self, age):
     """ HT cal. """
@@ -37,18 +37,33 @@ class htls(object):
     behao = self.total % 10
     if age < 10: age += 10
     t_age = abs(age - behao)
-    return '河圖：%s (%s)' % (o[t_age % 10],oo[t_age % 10])
+    return '%s (%s)' % (o[t_age % 10],oo[t_age % 10])
 
   def ls(self, year = datetime.today().year - 1911):
     """ LS cal. """
     name = self.total % 9
     ll = self.lss ## ['名','財','官','利','交','拜','衰','煞','絕']
     if year < 9: year += 9
-    return '洛書：%s' % ll[abs(year - name) % 9]
+    return '%s' % ll[abs(year - name) % 9]
 
   def all(self, age, year = datetime.today().year - 1911):
     """ All in one. age for ht, year for ls. """
-    re = self.s_op + '\n'
-    if age:re += self.ht(int(age)) + '\n'
-    re += self.ls(int(year))
+    re = self.s_op + '總計 ' + str(self.total) + '\n'
+    if age:re += '河圖：' + self.ht(int(age)) + '\n'
+    re += '洛書：' + self.ls(int(year))
     return re
+
+def masscal(q):
+  """ mass cal. q must be dict. """
+  re = ['name	age year 筆劃 河圖 角度 洛書']
+  for i in q:
+    try:
+      if i:
+        name, age, year = i.replace('\t', ' ').split(' ')
+        cal = htls(name.encode('utf-8'))
+        re.append('%s %s %s %s %s %s %s' % (name.encode('utf-8'), str(age), str(year), str(cal.total), str(cal.ht(int(age))), str(cal.ls(int(year))), str(cal.s_op.replace('\n', ' '))))
+      else:
+        re.append('')
+    except:
+      re.append('Format Fault.')
+  return re

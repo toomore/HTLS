@@ -35,7 +35,6 @@ class MainPage(webapp.RequestHandler):
   def get(self):
     self.response.out.write(template.render('./template/hh_index.htm',{}))
 
-############## webapp Models ###################
 class xmpp_invite(webapp.RequestHandler):
   @login_required
   def get(self):
@@ -77,6 +76,18 @@ class xmpp_pagex(webapp.RequestHandler):
     logging.info(self.request.POST)
     logging.info('Msg status: %s' % msg.body)
 
+class mass(webapp.RequestHandler):
+  def get(self):
+    self.response.out.write(template.render('./template/hh_mass.htm',{}))
+
+class massc(webapp.RequestHandler):
+  def get(self):
+    q = self.request.get('q')
+    qq = q.replace('\r','').split('\n')
+    re = htls.masscal(qq)
+    tv = {'q': re}
+    self.response.out.write(template.render('./template/hh_massc.htm',{'tv': tv}))
+
 ############## main Models ##############
 def main():
   """ Start up. """
@@ -84,7 +95,9 @@ def main():
                                       [
                                         ('/', MainPage),
                                         ('/chat/', xmpp_invite),
-                                        ('/_ah/xmpp/message/chat/', xmpp_pagex)
+                                        ('/_ah/xmpp/message/chat/', xmpp_pagex),
+                                        ('/mass', mass),
+                                        ('/massc', massc)
                                       ],debug=True)
   run_wsgi_app(application)
 

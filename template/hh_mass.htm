@@ -1,0 +1,17 @@
+{% extends "h_infopage.htm" %}
+
+{% block titlename %}大量計算 - {% endblock %}
+
+{% block content %}
+<form method="GET" action="/massc">
+<textarea name="q" rows="12" cols="20">
+碼小久 45 99
+碼久 77 99
+</textarea><br>
+<input type="submit" value="大量計算">
+</form>
+{% endblock %}
+
+{% block foot %}
+<div class="descr">{% include "h_desc.htm" %}</div>
+{% endblock %}
