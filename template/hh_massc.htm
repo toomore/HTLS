@@ -3,14 +3,15 @@
 {% block titlename %}大量計算結果 - {% endblock %}
 
 {% block content %}
-計算時間：{{ tv.t }} 秒，計算結果如下：<br>
+計算 {{ tv.times }} 項樣本 (需時 {{ tv.t }} 秒)，結果如下：<br>
 <div class="aboutable">
 {% for i in tv.q %}
 {{ i }}<br>
 {% endfor %}
 </div>
 <br>
-Tips：可以將以上的資料複製，到<b>試算表</b>使用<b>選擇性貼上</b>、<b>空隔</b>區隔，作資料再處理使用！<br>
+Tips：可以將以上的資料複製，到<b>試算表</b>使用<b>選擇性貼上</b>、<b>匯入字串精靈（Excel）</b>、<b>空隔</b>區隔，作資料再處理使用！<br>
+<br>
 <a href="/mass">← 再計算其他的</a>
 {% endblock %}
 

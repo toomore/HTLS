@@ -55,7 +55,8 @@ class htls(object):
 
 def masscal(q):
   """ mass cal. q must be dict. """
-  re = ['name	age year 筆劃 河圖 角度 洛書']
+  re = ['姓名 年齡 流年 筆劃 河圖 角度 洛書']
+  times = 0
   for i in q:
     try:
       if i:
@@ -66,4 +67,5 @@ def masscal(q):
         re.append('')
     except:
       re.append('Format Fault.')
-  return re
+    times += 1
+  return re,times

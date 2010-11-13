@@ -6,10 +6,10 @@ a:hover{
 body{
         font-family: arial;}
 input{
-        font-size:10pt;
+        font-size:12pt;
         font-family: arial;
         font-weight: bold;
-        padding:4px;
+        padding:6px;
         margin:4px;
         color:#446655;}
 .desc {
@@ -48,7 +48,7 @@ input{
         width:100%;}
 .top {
         border-top:1px #C9D7F1 solid;
-        height:6px;}
+        }
 .sdiv {
         float:left;
         margin: 5px;

@@ -86,9 +86,13 @@ class massc(webapp.RequestHandler):
     t = datetime.today()
     q = self.request.get('q')
     qq = q.replace('\r','').split('\n')
-    re = htls.masscal(qq)
+    re,times = htls.masscal(qq)
     end = datetime.today() - t
-    tv = {'q': re,'t': '%s.%06d' % (end.seconds, end.microseconds)}
+    tv = {
+      'q': re,
+      't': '%s.%06d' % (end.seconds, end.microseconds),
+      'times': times
+    }
     self.response.out.write(template.render('./template/hh_massc.htm',{'tv': tv}))
 
 ############## main Models ##############
