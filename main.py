@@ -25,6 +25,7 @@ from google.appengine.api import xmpp
 from google.appengine.api import users
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.webapp.util import login_required
+from google.appengine.ext.webapp import template
 
 #from google.appengine.api import urlfetch
 import logging,htls
@@ -32,11 +33,7 @@ import logging,htls
 ############## webapp Models ##############
 class MainPage(webapp.RequestHandler):
   def get(self):
-    msg = """
-HTLS 河圖洛書 <a href="/chat/">索取邀請函</a> / <a href="https://github.com/toomore/HTLS/wiki/GTalk">使用說明</a><br>
-<b>(需要 Gmail 才可使用此應用程式)</b>
-"""
-    self.response.out.write(msg)
+    self.response.out.write(template.render('./template/hh_index.htm',{}))
 
 ############## webapp Models ###################
 class xmpp_invite(webapp.RequestHandler):
@@ -47,15 +44,8 @@ class xmpp_invite(webapp.RequestHandler):
     xmpp.send_message('toomore0929@gmail.com', '#NEWUSER %s' % umail)
     logging.info('#NEWUSER %s' % umail)
     ## todo: send a guild mail to the first time invited user.
-    re = """
-%s 寄送邀請了！ 請確認您的 <a href="http://www.gmail.com/">Gmail</a> 信箱。<br>
-<br>
-再 3 個步驟即可完成：<br>
-1. 連到 Gmail 信箱，在左側<b>即時通訊</b>欄中確認加入 myhtls@appspot.com<br>
-2. 在下方欄位內找到 <b>myhtls</b> 點擊開啟對話視窗<br>
-3. 輸入 help 或相關查詢即可使用
-""" % umail
-    self.response.out.write(re)
+    tv = {'umail': umail}
+    self.response.out.write(template.render('./template/hh_invite.htm',{'tv': tv}))
     #self.redirect('http://www.gmail.com/')
 
 class xmpp_pagex(webapp.RequestHandler):
