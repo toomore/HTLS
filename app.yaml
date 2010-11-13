@@ -36,6 +36,12 @@ handlers:
   login: admin
 
 ## Main WSGI
+- url: /mass
+  script: main.py
+  secure: always
+- url: /massc
+  script: main.py
+  secure: always
 - url: .*
   script: main.py
   #secure: always
