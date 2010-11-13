@@ -61,11 +61,20 @@ input{
 .sdiv img{
         width:90;
         border:0px}
-.aboutable{
+.massresult{
+        text-align:left;
         font-size:10pt;
         background:#eeddcc;
-        padding:6px;
-        margin:6px;}
+        border: 1px #cba solid;
+        padding:15px;
+        margin:15px;}
+.tips{
+        width:40%;
+        font-size:10pt;
+        background:#ded;
+        border: 1px #bcb solid;
+        padding:5px;
+        margin:5px;}
 .aboutable td{
         border-bottom:1px #990066 solid;}
 .langtable{
