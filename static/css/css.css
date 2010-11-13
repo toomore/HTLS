@@ -76,4 +76,8 @@ input{
 .langtable td{
         border-bottom:1px #aabbaa solid;}
 .foot {clear:both;}
+.footdesc{
+        font-size:9pt;
+        text-align:right;
+}
 .cc {clear:both;}
