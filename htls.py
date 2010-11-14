@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from datetime import datetime
+import csv
 
 class htls(object):
   """ HTLS """
@@ -69,3 +70,17 @@ def masscal(q):
       re.append('Format Fault.')
     times += 1
   return re,times
+
+def htexp(q):
+  """ Explain ht result."""
+  csv_read = csv.reader(open('./htlssay2.csv','r'))
+  ii = 1
+  re = {}
+  for i in csv_read:
+    print ii
+    hh = ''
+    for h in i[1:]:
+      hh += '● ' + h + '\n'
+    re[i[0]] = hh
+    ii += 1
+  return re[q]

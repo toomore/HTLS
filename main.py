@@ -53,6 +53,12 @@ class xmpp_pagex(webapp.RequestHandler):
     msg = xmpp.Message(self.request.POST)
     if 'help' in msg.body:
       msg.reply('\r\n<姓名> <年齡> <計算流年（民國年）>')
+    elif 'htsay' in msg.body:
+      try:
+        st = msg.body.split(' ')
+        msg.reply(htls.htexp(st[1].encode('utf-8')))
+      except:
+        msg.reply('輸入錯誤！請參考說明文件：https://github.com/toomore/HTLS/wiki/GTalk')
     elif 'ht' in msg.body:
       hts = htls.htls().hts
       re = ''
