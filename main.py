@@ -52,13 +52,13 @@ class xmpp_pagex(webapp.RequestHandler):
   def post(self):
     msg = xmpp.Message(self.request.POST)
     if 'help' in msg.body:
-      msg.reply('\r\n<姓名> <年齡> <計算流年（民國年）>')
+      msg.reply('\r\n<姓名> <年齡> <計算流年（民國年）> 或是參閱說明文件：http://bit.ly/9KaYWJ')
     elif 'htsay' in msg.body:
       try:
         st = msg.body.split(' ')
         msg.reply(htls.htexp(st[1].encode('utf-8')))
       except:
-        msg.reply('輸入錯誤！請參考說明文件：https://github.com/toomore/HTLS/wiki/GTalk')
+        msg.reply('輸入錯誤！請參考說明文件：http://bit.ly/9KaYWJ ')
     elif 'ht' in msg.body:
       hts = htls.htls().hts
       re = ''
@@ -78,7 +78,7 @@ class xmpp_pagex(webapp.RequestHandler):
         msg.reply('\r\n' + re)
         logging.info('HTLS: %s' % re)
       except:
-        msg.reply('輸入錯誤！請參考說明文件：https://github.com/toomore/HTLS/wiki/GTalk')
+        msg.reply('輸入錯誤！請參考說明文件：http://bit.ly/9KaYWJ')
     #msg.reply(msg.body)
     logging.info(self.request.POST)
     logging.info('Msg status: %s' % msg.body)
