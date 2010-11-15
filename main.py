@@ -109,6 +109,22 @@ class rewrite(webapp.RequestHandler):
   def get(self):
     self.redirect('/')
 
+class dl(webapp.RequestHandler):
+  def post(self):
+
+    q = self.request.get('q').replace('  ',' ').replace(' ',',')
+
+    self.response.headers.add_header("Content-type","application/force-download")
+    self.response.headers.add_header("Content-Disposition", "attachment; filename=HTLS-%s.csv" % datetime.now().isoformat().split('.')[0])
+    #self.response.headers.add_header("Content-length:", str(len(q)))
+    self.response.headers.add_header("Cache-Control", "no-cache, must-revalidate")
+    self.response.headers.add_header("Pragma", "no-cache")
+
+    if self.request.get('c') == 'big5':
+      self.response.out.write(q.encode('big5'))
+    else:
+      self.response.out.write(q)
+
 ############## main Models ##############
 def main():
   """ Start up. """
@@ -120,6 +136,7 @@ def main():
                                         ('/_ah/xmpp/message/chat/', xmpp_pagex),
                                         ('/mass', mass),
                                         ('/massc', massc),
+                                        ('/dl', dl),
                                         ('/.*', rewrite)
                                       ],debug=True)
   run_wsgi_app(application)

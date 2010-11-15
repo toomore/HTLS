@@ -5,7 +5,7 @@ a:hover{
         color:#6666dd}
 body{
         font-family: arial;}
-input{
+input,select {
         font-size:12pt;
         font-family: arial;
         font-weight: bold;
