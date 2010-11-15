@@ -68,6 +68,14 @@ input{
         border: 1px #cba solid;
         padding:15px;
         margin:15px;}
+.txttips{
+        width:380px;
+        text-align:left;
+        font-size:10pt;
+        background:#cfc;
+        border: 1px #0c0 solid;
+        padding:15px;
+        margin:15px;}
 .tips{
         width:400px;
         font-size:10pt;

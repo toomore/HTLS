@@ -36,6 +36,10 @@ class MainPage(webapp.RequestHandler):
   def get(self):
     self.response.out.write(template.render('./template/hh_index.htm',{}))
 
+class getinvite(webapp.RequestHandler):
+  def get(self):
+    self.response.out.write(template.render('./template/hh_getinvite.htm',{}))
+
 class xmpp_invite(webapp.RequestHandler):
   @login_required
   def get(self):
@@ -101,16 +105,22 @@ class massc(webapp.RequestHandler):
     }
     self.response.out.write(template.render('./template/hh_massc.htm',{'tv': tv}))
 
+class rewrite(webapp.RequestHandler):
+  def get(self):
+    self.redirect('/')
+
 ############## main Models ##############
 def main():
   """ Start up. """
   application = webapp.WSGIApplication(
                                       [
                                         ('/', MainPage),
-                                        ('/chat/', xmpp_invite),
+                                        ('/getinvite', getinvite),
+                                        ('/invite', xmpp_invite),
                                         ('/_ah/xmpp/message/chat/', xmpp_pagex),
                                         ('/mass', mass),
-                                        ('/massc', massc)
+                                        ('/massc', massc),
+                                        ('/.*', rewrite)
                                       ],debug=True)
   run_wsgi_app(application)
 
