@@ -4,7 +4,9 @@ a {
 a:hover{
         color:#6666dd}
 body{
-        font-family: arial;}
+        font-family: arial;
+        margin: 0;
+        padding: 0;}
 input,select {
         font-size:12pt;
         font-family: arial;
